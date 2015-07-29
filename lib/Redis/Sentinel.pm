@@ -24,6 +24,9 @@ sub get_service_address {
       or return;
     $ip eq 'IDONTKNOW'
       and return $ip;
+    if( ( $ip =~ m/:/ ) && ( $ip !~ /^\[/ ) ) {
+        $ip = "[${ip}]";
+    }
     return "$ip:$port";
 }
 

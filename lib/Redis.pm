@@ -7,7 +7,7 @@ package Redis;
 use warnings;
 use strict;
 
-use IO::Socket::INET;
+use IO::Socket::IP;
 use IO::Socket::UNIX;
 use IO::Socket::Timeout;
 use IO::Select;
@@ -135,7 +135,7 @@ sub new {
               }
               
               return $self->_maybe_enable_timeouts(
-                  IO::Socket::INET->new(
+                  IO::Socket::IP->new(
                       PeerAddr => $server_address,
                       Proto    => 'tcp',
                       ( $self->{cnx_timeout} ? ( Timeout => $self->{cnx_timeout} ) : () ),
@@ -149,7 +149,7 @@ sub new {
     $self->{builder} = sub {
         my ($self) = @_;
         $self->_maybe_enable_timeouts(
-            IO::Socket::INET->new(
+            IO::Socket::IP->new(
                 PeerAddr => $self->{server},
                 Proto    => 'tcp',
                 ( $self->{cnx_timeout} ? ( Timeout => $self->{cnx_timeout} ) : () ),
